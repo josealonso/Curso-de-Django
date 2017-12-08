@@ -13,3 +13,5 @@ if __name__ == "__main__":
             "forget to activate a virtual environment?"
         ) from exc
     execute_from_command_line(sys.argv)
+
+# Las vistas en Django son funCs o métodos de una clase
