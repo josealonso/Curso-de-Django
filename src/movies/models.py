@@ -26,6 +26,7 @@ class Movie(models.Model):
     modified_at = models.DateTimeField(auto_now=True)  # saves the date when the object is updated
 
     category = models.ForeignKey(Category, on_delete=models.PROTECT)
+    # no se puede borrar una categoría, si tiene películas asociadas.
 
     def __str__(self):  # 0 parametros
         return self.title
