@@ -25,5 +25,7 @@ class Movie(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)  # saves the date when the object is created
     modified_at = models.DateTimeField(auto_now=True)  # saves the date when the object is updated
 
+    category = models.ForeignKey(Category, on_delete=models.PROTECT)
+
     def __str__(self):  # 0 parametros
         return self.title
