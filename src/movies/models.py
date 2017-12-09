@@ -1,9 +1,17 @@
 from django.db import models
 
+
 class Category(models.Model):
 
     name = models.CharField(max_length=50)
     description = models.TextField(blank=True, null=True)  # optional
+
+    def __str__(self):  # 0 parametros
+        """
+        Devuelve la representacion de un objeto como una cadena
+        """
+        return self.name
+
 
 class Movie(models.Model):
 
@@ -16,3 +24,6 @@ class Movie(models.Model):
 
     created_at = models.DateTimeField(auto_now_add=True)  # saves the date when the object is created
     modified_at = models.DateTimeField(auto_now=True)  # saves the date when the object is updated
+
+    def __str__(self):  # 0 parametros
+        return self.title
