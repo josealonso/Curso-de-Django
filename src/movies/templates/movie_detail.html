@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ movie.title }}</title>
+</head>
+<body>
+
+    <h1>{{ movie.title }}</h1>
+    <img src="{{ movie.image }}" alt="{{ movie.title }}" width="300">
+    <p>{{ movie.summary }}</p>
+    <ul>
+        <li>
+            <strong>Director:</strong> {{ movie.director_name }}
+        </li>
+        <li>
+            <strong>Rating:</strong> {{ movie.rating }}
+        </li>
+        <li>
+            <strong>Category:</strong> {{ movie.category }}
+        </li>
+        <li>
+            <strong>Release date:</strong> {{ movie.release_date | date:"d/m/Y" }}
+        </li>
+    </ul>
+
+</body>
+</html>

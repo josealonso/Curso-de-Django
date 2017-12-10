@@ -7,9 +7,11 @@
 <body>
 
   <h1>Welcome to IPDB !!</h1>
-{% for movie in movies %}
-  <img src="{{ movie.image }}" alt="{{ movie.title }}" title="{{ movie.title }}" height="300px">
-{% endfor %}
+  {% for movie in movies %}
+      <a href="{% url 'movie_detail_page' movie.pk %}" title="{{ movie.title }}">
+          <img src="{{ movie.image }}" alt="{{ movie.title }}" title="{{ movie.title }}" height="300px">
+      </a>
+  {% endfor %}
 
 </body>
 </html>
