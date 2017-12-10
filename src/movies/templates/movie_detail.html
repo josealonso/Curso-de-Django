@@ -1,10 +1,7 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>{{ movie.title }}</title>
-</head>
-<body>
+{% extends "base.html" %}
+
+{% block head_title %} {{ movie.title }} {% endblock %}
+{% block content %}
 
     <h1>{{ movie.title }}</h1>
     <img src="{{ movie.image }}" alt="{{ movie.title }}" width="300">
@@ -24,5 +21,4 @@
         </li>
     </ul>
 
-</body>
-</html>
+{% endblock %}

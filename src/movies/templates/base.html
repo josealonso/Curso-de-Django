@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block head_title %} IPDB - Internet Pelis Database {% endblock %}</title>
+</head>
+<body>
+    <div class="menu">
+        <a href="{% url 'home_page' %}">Inicio</a>
+    </div>
+    {% block content %} {% endblock %}
+</body>
+</html>

@@ -23,5 +23,5 @@ urlpatterns = [
     # path('^$', hello_world)
     # path('movies/<int:id>', movie_detail),
     path('pelis/<int:pk>', movie_detail, name="movie_detail_page"),
-    path('', home)
+    path('', home, name="home_page")
 ]
