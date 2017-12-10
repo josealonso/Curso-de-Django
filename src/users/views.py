@@ -1,5 +1,5 @@
 from django.contrib import messages
-from django.contrib.auth import authenticate, login as django_login
+from django.contrib.auth import authenticate, login as django_login, logout as django_logout
 # from django.contrib.auth.models import User
 from django.shortcuts import render, redirect
 
@@ -21,3 +21,8 @@ def login(request):
     return render(request, "login_form.html")
     # Django busca las plantillas en todas las carpetas "templates" de las aplicaciones instaladas
     # (variable INSTALLED_APPS en "settings.py")
+
+
+def logout(request):
+    django_logout(request)
+    return redirect('login_page')
