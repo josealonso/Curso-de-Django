@@ -17,12 +17,12 @@ from django.contrib import admin
 from django.urls import path
 
 from movies.views import movie_detail, home  # paquete.modulo
-from users.views import login, logout
+from users.views import logout, LoginView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
 
-    path('login', login, name="login_page"),
+    path('login', LoginView.as_view(), name="login_page"),
     path('logout', logout, name="logout_page"),
     # path('^$', hello_world)
     # path('movies/<int:id>', movie_detail),
