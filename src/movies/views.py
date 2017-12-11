@@ -47,7 +47,9 @@ class CreateMovieView(LoginRequiredMixin, View):
         return render(request, "movie_form.html", {'form': form})
 
     def post(self, request):
-        form = MovieForm(request.POST)
+        movie = Movie()
+        movie.user = request.user  # asigno a la pelicula el usuario autenticado
+        form = MovieForm(request.POST, instance=movie)
         if form.is_valid():
             movie = form.save()
             form = MovieForm()  # formulario vacío
@@ -55,5 +57,5 @@ class CreateMovieView(LoginRequiredMixin, View):
             message = "Movie created successfully !!"
             # message += mark_safe('<a href="{0}">View</a>'.format(url))
             message += '<a href="{0}">View</a>'.format(url)
-            messages.succcess(request, message)
+            messages.success(request, message)
         return render(request, "movie_form.html", {'form': form})
