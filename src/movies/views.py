@@ -1,8 +1,13 @@
 from django.http import HttpResponse
 from django.shortcuts import render
+from django.contrib import messages
+from django.urls import reverse
 
-# Create your views here.
+from django.utils.safestring import mark_safe
+from django.views import View
+
 from movies.models import Movie
+from movies.templates.forms import MovieForm
 
 
 def hello_world(request):
@@ -30,3 +35,20 @@ def movie_detail(request, pk):  # El segundo argumento es el id. de la película
         return render(request, "movie_detail.html", context)
 
 
+class CreateMovieView(View):
+
+    def get(self, request):
+        form = MovieForm()
+        return render(request, "movie_form.html", {'form': form})
+
+    def post(self, request):
+        form = MovieForm(request.POST)
+        if form.is_valid():
+            movie = form.save()
+            form = MovieForm()  # formulario vacío
+            url = reverse("movie_detail_page", args=[movie.pk])
+            message = "Movie created successfully !!"
+            # message += mark_safe('<a href="{0}">View</a>'.format(url))
+            message += '<a href="{0}">View</a>'.format(url)
+            messages.succcess(request, message)
+        return render(request, "movie_form.html", {'form': form})
