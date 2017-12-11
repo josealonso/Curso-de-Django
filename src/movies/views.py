@@ -1,3 +1,5 @@
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import HttpResponse
 from django.shortcuts import render
 from django.contrib import messages
@@ -19,12 +21,14 @@ def hello_world(request):
         return HttpResponse("Hello " + name)
 
 
+@login_required
 def home(request):
     latest_movies = Movie.objects.all().order_by("-release_date")
     context = {'movies': latest_movies[:4]}
     return render(request, "home.html", context)
 
 
+@login_required
 def movie_detail(request, pk):  # El segundo argumento es el id. de la película
     possible_movies = Movie.objects.filter(pk=pk).select_related("category")  # equivale a un JOIN de SQL
     if len(possible_movies) == 0:
@@ -35,9 +39,10 @@ def movie_detail(request, pk):  # El segundo argumento es el id. de la película
         return render(request, "movie_detail.html", context)
 
 
-class CreateMovieView(View):
+class CreateMovieView(LoginRequiredMixin, View):
 
     def get(self, request):
+        # if request.user.is_autenticated():
         form = MovieForm()
         return render(request, "movie_form.html", {'form': form})
 

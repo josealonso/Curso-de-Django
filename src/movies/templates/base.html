@@ -10,6 +10,7 @@
     <div class="menu">
         <a href="{% url 'home_page' %}">Inicio | </a>
         {% if user.is_authenticated %}
+            <a href="{% url 'create_movie_page' %}">New movie |</a>
             <a href="{% url 'logout_page' %}">Logout</a>
         {% else %}
             <a href="{% url 'login_page' %}">Login</a>
