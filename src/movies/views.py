@@ -7,6 +7,7 @@ from django.urls import reverse
 
 from django.utils.safestring import mark_safe
 from django.views import View
+from django.views.generic import ListView
 
 from movies.models import Movie
 from movies.templates.forms import MovieForm
@@ -59,3 +60,13 @@ class CreateMovieView(LoginRequiredMixin, View):
             message += '<a href="{0}">View</a>'.format(url)
             messages.success(request, message)
         return render(request, "movie_form.html", {'form': form})
+
+
+class MyMoviesView(ListView):  # Ocho métodos asociados a ListView. Se pueden sobreescribir.
+    model = Movie
+    template_name = "my_movies.html"
+
+    def get_queryset(self):
+        queryset = super(MyMoviesView, self).get_queryset()
+        return queryset.filter(user=self.request.user)
+
