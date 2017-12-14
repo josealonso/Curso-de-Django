@@ -17,6 +17,7 @@ from django.contrib import admin
 from django.urls import path
 
 from movies.views import movie_detail, home, CreateMovieView, MyMoviesView  # paquete.modulo
+from users.api import HelloWorld
 from users.views import logout, LoginView
 
 urlpatterns = [
@@ -29,5 +30,8 @@ urlpatterns = [
     path('pelis/crear', CreateMovieView.as_view(), name="create_movie_page"),
     path('pelis/<int:pk>', movie_detail, name="movie_detail_page"),
     path('pelis/', MyMoviesView.as_view(), name="my_movies_page"),
-    path('', home, name="home_page")
+    path('', home, name="home_page"),
+
+    # API REST
+    path('api/1.0/hello/', HelloWorld.as_view(), name="api_hello_world")
 ]
