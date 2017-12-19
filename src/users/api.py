@@ -4,7 +4,7 @@ from rest_framework.views import APIView
 from rest_framework.generics import get_object_or_404
 from rest_framework.response import Response
 
-from users.serializers import UserSerializer
+from users.serializers import UserSerializer, UsersListSerializer
 
 
 class HelloWorld(APIView):
@@ -24,7 +24,7 @@ class UsersListAPI(APIView):
 
     def get(self, request):
         users = User.objects.all()  # users es un objeto q hay q convertir al formato de salida
-        serializer = UserSerializer(users, many=True)  # muchos usuarios
+        serializer = UsersListSerializer(users, many=True)  # muchos usuarios
         #  El serializador obtiene un diccionario por cada usuario de la lista
         return Response(serializer.data)
 
@@ -42,6 +42,17 @@ class UserDetailAPI(APIView):
     def get(self, request, pk):
         user = get_object_or_404(User, pk=pk)
         serializer = UserSerializer(user)
+        # Llama al método create de serializers.py
         return Response(serializer.data)
+
+    def put(self, request, pk):
+        user = get_object_or_404(User, pk=pk)
+        serializer = UserSerializer(user, data=request.data)
+        # Llama al método update de serializers.py
+        if serializer.is_valid:
+            user = serializer.save()
+            return  Response(serializer.data, status=status.HTTP_202_ACCEPTED)
+        else:
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
