@@ -56,7 +56,7 @@ class UserDetailAPI(APIView):
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
         # Según REST, put no es lo mismo que patch, pues en este último se actualiza
-        # solo un campo ---> campo "partial" del serializador igual a True
+        # solo un campo ---> parámetro "partial" del serializador igual a True
 
     def delete(self, request, pk):
         user = get_object_or_404(User, pk=pk)
