@@ -9,7 +9,7 @@ class MoviesListAPI(ListCreateAPIView):
     queryset = Movie.objects.all()
     serializer_class = MovieSerializer
 
-# métodos past y put
+# métodos post y put
 
 
 class MovieDetailAPI(RetrieveUpdateDestroyAPIView):
