@@ -5,6 +5,7 @@ from rest_framework.views import APIView
 from rest_framework.generics import get_object_or_404
 from rest_framework.response import Response
 
+from users.permissions import UsersPermission
 from users.serializers import UserSerializer, UsersListSerializer
 
 
@@ -21,6 +22,8 @@ class HelloWorld(APIView):
 
 
 class UsersListAPI(APIView):
+
+    permission_classes = [UsersPermission]
 
     def get(self, request):
         users = User.objects.all()
@@ -41,14 +44,18 @@ class UsersListAPI(APIView):
 
 class UserDetailAPI(APIView):
 
+    permission_classes = [UsersPermission]
+
     def get(self, request, pk):
         user = get_object_or_404(User, pk=pk)
+        self.check_object_permissions(request, user)
         serializer = UserSerializer(user)
         # Llama al método create de serializers.py
         return Response(serializer.data)
 
     def put(self, request, pk):
         user = get_object_or_404(User, pk=pk)
+        self.check_object_permissions(request, user)
         serializer = UserSerializer(user, data=request.data)
         # Llama al método update de serializers.py
         if serializer.is_valid:
@@ -62,5 +69,6 @@ class UserDetailAPI(APIView):
 
     def delete(self, request, pk):
         user = get_object_or_404(User, pk=pk)
+        self.check_object_permissions(request, user)
         user.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)

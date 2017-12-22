@@ -2,6 +2,7 @@ from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIV
 from rest_framework.permissions import IsAuthenticatedOrReadOnly
 
 from movies.models import Movie
+from movies.permissions import MoviesPermission
 from movies.serializers import MovieSerializer, MoviesListSerializer
 
 
@@ -22,6 +23,7 @@ class MovieDetailAPI(RetrieveUpdateDestroyAPIView):
 
     queryset = Movie.objects.all()
     serializer_class = MovieSerializer
+    permission_classes = [MoviesPermission]
 
     def perform_update(self, serializer):
         serializer.save(user=self.request.user)
