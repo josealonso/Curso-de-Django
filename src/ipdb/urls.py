@@ -44,7 +44,7 @@ urlpatterns = [
     path('api/1.0/users/', UsersListAPI.as_view(), name="api_users_list"),
 
     path('api/1.0/movies/<int:pk>', MovieDetailAPI.as_view(), name="api_movie_detail"),
-    path('api/1.0/movies/', MoviesListAPI.as_view(), name="api_movies_list")
+    path('api/1.0/movies/', MoviesListAPI.as_view(), name="api_movies_list"),
 
     path('api/1.0/', include(router.urls))
 ]

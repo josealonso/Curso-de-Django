@@ -1,3 +1,4 @@
+from rest_framework.filters import SearchFilter, OrderingFilter
 from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIView
 from rest_framework.permissions import IsAuthenticatedOrReadOnly
 from rest_framework.viewsets import ModelViewSet
@@ -11,6 +12,9 @@ class MoviesListAPI(ListCreateAPIView):
 
     queryset = Movie.objects.all()
     permission_classes = [IsAuthenticatedOrReadOnly]
+    filter_backends = [SearchFilter, OrderingFilter]
+    search_fields = ["title", "director_name", "category__name", "summary"]
+    ordering_fields = ["title", "category", "release_date", "created_at", "modified_at", "rating", "director_name"]
 
     def get_serializer_class(self):
         return MoviesListSerializer if self.request.method == "GET" else MovieSerializer
