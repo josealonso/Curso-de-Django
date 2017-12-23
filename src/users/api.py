@@ -72,3 +72,5 @@ class UserDetailAPI(APIView):
         self.check_object_permissions(request, user)
         user.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
+
+

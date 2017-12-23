@@ -15,11 +15,15 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from rest_framework.routers import SimpleRouter
 
-from movies.api import MoviesListAPI, MovieDetailAPI
+from movies.api import MoviesListAPI, MovieDetailAPI, CategoryViewSet
 from movies.views import movie_detail, home, CreateMovieView, MyMoviesView  # paquete.modulo
 from users.api import HelloWorld, UsersListAPI, UserDetailAPI
 from users.views import logout, LoginView
+
+router = SimpleRouter()
+router.register('categories', CategoryViewSet)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -41,4 +45,6 @@ urlpatterns = [
 
     path('api/1.0/movies/<int:pk>', MovieDetailAPI.as_view(), name="api_movie_detail"),
     path('api/1.0/movies/', MoviesListAPI.as_view(), name="api_movies_list")
+
+    path('api/1.0/', include(router.urls))
 ]
